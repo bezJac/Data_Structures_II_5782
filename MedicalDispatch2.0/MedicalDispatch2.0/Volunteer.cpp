@@ -1,19 +1,15 @@
 #include "Volunteer.h"
 
-Volunteer::Volunteer()
-{
 
-}
 
-Volunteer::~Volunteer()
-{
-}
+Volunteer::Volunteer(){}
+
+Volunteer::~Volunteer(){}
 
 Volunteer& Volunteer::operator=(const Volunteer& vol)
 {
 	name = vol.name;
 	address = vol.address;
-	city = vol.city;
 	phone = vol.phone;
 	return *this;
 }
@@ -25,22 +21,15 @@ bool Volunteer::operator==(const Volunteer& vol)const
 
 ostream& operator<<(ostream& os, const Volunteer& vol)
 {
-	os << "name is : " << vol.name << "\n";
-	os << "phone is: " << vol.phone << "\n";
-	os << "address : " << vol.address << "\n";
-	os << "city:" << vol.city << "\n";
+	os << vol.name << ":volunteer ";
+	os << "name=" << vol.name;
+	os << " phone=" << vol.phone;
+	os << " address=" << vol.address;
 	return os;
 }
 istream& operator>>(istream& is, Volunteer& vol)
 {
-	cout << "enter name\n";
-	is >> vol.name;
-	cout << "enter phone number\n";
-	is >> vol.phone;
-	cout << "enter address\n";
-	is >> vol.address;
-	cout << "enter city\n";
-	is >> vol.city;
-
+	cout << "Enter volunteer name phone address\n";
+	is >> vol.name  >> vol.phone >> vol.address;
 	return is;
 }

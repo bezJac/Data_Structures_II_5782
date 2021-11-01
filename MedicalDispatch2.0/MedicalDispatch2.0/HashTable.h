@@ -1,29 +1,46 @@
 #pragma once
+#pragma once
 #include <iostream>
 #include <vector>
-#include "Item.h"
-
 using namespace std;
 
 
+// enum representing states of an elemnt in hash Table
+enum state { Empty, full, deleted };
 
-template <class T, class K>
+
+// template class representing an element in a  Hash table
+template <typename T, typename K>
+class Item
+{
+public:
+	T data;            // value
+	K key;			  // key for hashing functionality
+	state flag;		  // current state of location containning item in the hash table
+
+	Item() { flag = Empty; }
+	Item(T d, K k, state f) { data = d; key = k; flag = f; }
+};
+
+
+
+// object represents a hash table
+template <typename T, typename K>
 class HashTable
 {
-private:
-	Item<T, K>* table = new Item<T, K>[];
-	bool isPrime(int n);
-	int  nextPrime(int n);
-	int length = 0;
 public:
+	Item<T, K> *table;
+	int size;
+
 	HashTable(int size);
 	~HashTable();
+	bool isPrime(int);
 	virtual int Hashfunc1(K) = 0;
 	virtual int Hashfunc2(K) = 0;
-	virtual int Hash(K, int);
-	virtual int Search(K);
-	void Add(Item<T, K>);
-	virtual void Delete(K k);
+	int Hash(K, int);
+	int Search(K k);
+	void Add(T, K);
+	void Delete(K k);
 	void Print();
 
 
@@ -35,30 +52,14 @@ public:
 
 
 
-
-template<class T, class K>
-HashTable< T, K>::HashTable(int size)
-{
-	length = nextPrime(size);
-	table = new Item< T, K>[length];
-
-
-}
-
-template<class T, class K>
-HashTable< T, K>::~HashTable()
-{
-	if (length > 0)
-		delete table[];
-}
-
-template<class T, class K>
-bool HashTable< T, K>::isPrime(int n)
+// check if a number is a  prime number. 
+// returns bool
+template <typename T, typename K>
+bool HashTable<T, K>::isPrime(int n)
 {
 	// Corner cases
 	if (n <= 1) return false;
 	if (n <= 3) return true;
-
 	// This is checked so that we can skip
 	// middle five numbers in below loop
 	if (n % 2 == 0 || n % 3 == 0) return false;
@@ -69,81 +70,109 @@ bool HashTable< T, K>::isPrime(int n)
 
 	return true;
 }
-template<class T, class K>
-int HashTable< T, K>::nextPrime(int n)
+
+
+// cunstroctor 
+// instantiates table  size to nearest prime number to the left of size
+template <typename T, typename K>
+HashTable<T, K>::HashTable(int size)
 {
-	// Base case
-	if (n <= 1)
-		return 2;
-
-	int prime = n;
-	bool found = false;
-
-	// Loop continuously until isPrime returns
-	// true for a number greater than n
-	while (!found) {
-		prime++;
-
-		if (isPrime(prime))
-			found = true;
-	}
-
-	return prime;
-}
-template<class T, class K>
-int HashTable< T, K>::Hash(K k, int i)
-{
-	return(Hashfunc1(k) + i * Hashfunc2(k)) % length;
+	// increase size value to nearest greater prime number to parameter size
+	while (!isPrime(size))
+		size++;
+	this->size = size;
+	table = new Item<T, K>[size];
 }
 
-template<class T, class K>
-int HashTable<T, K>::Search(K k)
+
+
+// destructor
+template <typename T, typename K>
+HashTable<T,K>::~HashTable()
 {
-	int i = 0;
-	for (int j = hash(k, i); i == length || table[j].flag == empty; i++)
+	delete[] table;
+}
+
+
+// search for a vlaue in hash table by its key
+template <typename T, typename K>
+int HashTable<T,K>::Search(K k)
+{
+	int counter = 0;
+	int index;
+	do
 	{
-		if (table[j].key == k)
-			return j;
-		i += 1;
+		// calculate expected location index in hash table
+		index= Hash(k, counter); 
 
-	}
-	return -1;
+		if (table[index].key == k && table[index].flag == full)
+			return index;		
+		else
+			counter++;
+
+	} while(counter < size && table[index].flag != Empty);
+	return -1;   //if the item wasn't found
 }
-template<class T, class K>
-void HashTable<T, K>::Add(Item<T, K> temp)
-{
 
-	int i = 0;
-	bool flag = false;
-	for (int j = hash(temp.key, i); i < length; i++)
+
+// calculate location index of an item in hash table
+// returns index
+template <typename T, typename K>
+int HashTable<T, K>::Hash(K k, int i )
+{
+	return (Hashfunc1(k) + i * Hashfunc2(k)) % size;
+}
+
+// insert an item into hash table
+template <typename T, typename K>
+void HashTable<T, K>::Add(T d,K k)
+{
+	int time = 0;
+	Item<T, K> item(d, k, full);
+	int index;
+	do
 	{
-		if (table[j].status == empty || table[j].flag == deleted)
+		index = Hash(k, time);  // calculate an index to check state for insert
+		if (table[index].flag == Empty || table[index].flag == deleted)
 		{
-			table[j].data = temp.data;
-			table[j].key = temp.key;
-			table[j].flag = full;
-			flag = true;
-			break;
+			table[index].data = item.data;
+			table[index].key = item.key;
+			table[index].flag = item.flag;
+			return;
 		}
-		i += 1;
-	}
-	if (!flag)
-		cout << "hash table overflow\n";
+		time++;					// current index is full
+	} while (time < size);
+
+	// table overflow, no available location to insert
+	cout << "hash table overflow\n";
 }
 
-template<class T, class K>
+// delete an item from hash table - identified by its key
+template <typename T, typename K>
 void HashTable < T, K>::Delete(K k)
 {
-	int i = Search(k);
-	table[i].status = deleted;
+	// find value's index  in the table
+	int index = Search(k);
+
+	// item not found
+	if (index == -1) 
+	{
+		cout << "ERROR";
+		return;
+	}
+
+	// set location in table to deleted - insertion is now allowed at index
+	table[index].flag = deleted;
 }
-template<class T, class K>
+
+// print content the of hash table
+template <typename T, typename K>
 void  HashTable < T, K>::Print()
 {
-	for (int i = 0; i < length; i++)
+	for (int i = 0; i < size; i++)
 	{
-		if (table[i].status == full)
-			cout << table[i].data;
+		if (table[i].flag == full)			// print only current items in table
+			cout << table[i].data << ' ';
 	}
 }
 

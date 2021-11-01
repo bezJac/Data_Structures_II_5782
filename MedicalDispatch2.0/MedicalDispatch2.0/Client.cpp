@@ -1,28 +1,25 @@
 #include "Client.h"
-#include <iostream>
-using namespace std;
+
+
+// implementation for client class 
+
 
 Client::Client() {}
-
 Client::~Client() {}
+
 istream& operator>>(istream& is, Client& other)
 {
-	cout << "enter name:";
-	is >> other.name;
-	cout << "enter phone number:\n";
-	is >> other.phone;
-	cout << "enter street address:\n";
-	is >> other.address;
-	cout << "enter city:\n";
-	is >> other.city;
+	cout << "please enter name and phone and address of client\n";
+	is >> other.name >> other.phone	 >> other.address;
 	return is;
 
 }
 ostream& operator<<(ostream& os, const Client& other)
 {
-	os << "name is: " << other.name;
-	os << "phone is " << other.phone;
-	os << "address is: " << other.address << " " << other.city;
+	os << other.phone << ":client ";
+	os << "name: " << other.name;
+	os << " phone: " << other.phone;
+	os << " address: " << other.address;
 	return os;
 }
 Client& Client::operator=(const Client& other)
@@ -30,9 +27,9 @@ Client& Client::operator=(const Client& other)
 	name = other.name;
 	phone = other.phone;
 	address = other.address;
-	city = other.city;
 	return *this;
 }
 bool Client::operator==(const Client& other)
 {
-	return name == other.name;
+	return phone == other.phone;
+}
