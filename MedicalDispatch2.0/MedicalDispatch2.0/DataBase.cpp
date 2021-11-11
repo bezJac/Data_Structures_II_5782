@@ -56,22 +56,31 @@ void DataBase::listOfVolunteers(Client cl)
 // print a specific volunteer's list of  vclients with connection
 void DataBase::listOfClients(Volunteer vol)
 {
+	// check if volunteer is still in table
+	int index = volunteers.Search(vol.name);
 	cout << "The clients that were helped by volunteer " << vol.name << ": ";
-	// iterate through entire client table
-	for (int i = 0; i < clients.size; i++)
+	// if volunteer exist print list of clients helped
+	if (index != -1)
+		for_each(volunteers.table[index].data.clientsHelped.begin(), volunteers.table[index].data.clientsHelped.end(), [](string name) {cout << name << ' '; });	
+	//volunteer was deleted, iterate through entire client table to check if a
+	// client was helped by volunteer
+	else
 	{
-		if (clients.table[i].flag == full) // check al existing client
+		for (int i = 0; i < clients.size; i++)
 		{
-			list<string>::iterator it = clients.table[i].data.helpedByVolunteers.begin();
-			while(it !=  clients.table[i].data.helpedByVolunteers.end())
+			if (clients.table[i].flag == full) // check al existing client
 			{
-				if ((*it) == vol.name)			// volunteer's name in current clients list
+				list<string>::iterator it = clients.table[i].data.helpedByVolunteers.begin();
+				while (it != clients.table[i].data.helpedByVolunteers.end())
 				{
-					cout << clients.table[i].data.name << ' ';
-					break;
+					if ((*it) == vol.name)			// volunteer's name in current clients list
+					{
+						cout << clients.table[i].data.name << ' ';
+						break;
+					}
+					it++;
 				}
-				it++;
-			}	
+			}
 		}
 	}
 }
