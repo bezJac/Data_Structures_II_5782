@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MedicalDispatch2.0", "MedicalDispatch2.0\MedicalDispatch2.0.vcxproj", "{CD841706-F93F-411F-912E-6DF4889D0ABA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TrieTrees", "TrieTrees\TrieTrees.vcxproj", "{A5E6F226-8291-40AA-9EE3-B61FE3F961BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{CD841706-F93F-411F-912E-6DF4889D0ABA}.Release|x64.Build.0 = Release|x64
 		{CD841706-F93F-411F-912E-6DF4889D0ABA}.Release|x86.ActiveCfg = Release|Win32
 		{CD841706-F93F-411F-912E-6DF4889D0ABA}.Release|x86.Build.0 = Release|Win32
+		{A5E6F226-8291-40AA-9EE3-B61FE3F961BC}.Debug|x64.ActiveCfg = Debug|x64
+		{A5E6F226-8291-40AA-9EE3-B61FE3F961BC}.Debug|x64.Build.0 = Debug|x64
+		{A5E6F226-8291-40AA-9EE3-B61FE3F961BC}.Debug|x86.ActiveCfg = Debug|Win32
+		{A5E6F226-8291-40AA-9EE3-B61FE3F961BC}.Debug|x86.Build.0 = Debug|Win32
+		{A5E6F226-8291-40AA-9EE3-B61FE3F961BC}.Release|x64.ActiveCfg = Release|x64
+		{A5E6F226-8291-40AA-9EE3-B61FE3F961BC}.Release|x64.Build.0 = Release|x64
+		{A5E6F226-8291-40AA-9EE3-B61FE3F961BC}.Release|x86.ActiveCfg = Release|Win32
+		{A5E6F226-8291-40AA-9EE3-B61FE3F961BC}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
