@@ -21,13 +21,14 @@ public:
     };
     TrieNode* root;
 public:
-    Trie() { };
+    Trie();
     void addWord(string);
     bool deleteWord(string);
     bool searchWord(string key) { return searchWord(key, root); }
-    int printAllWordFromPrefix(string);
+    int printAutoSuggestions(string key);
 private:
     bool searchWord(string, TrieNode*);
     bool hasChildren(TrieNode*);
+    int printAllWordFromPrefix(TrieNode*, char* wordsArray,int position, int count =0 );
 
 };
