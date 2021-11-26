@@ -2,16 +2,12 @@
 Trie::Trie() 
 {
 	root = new TrieNode();
-	/*for (int i = 0; i < ALPHABET_SIZE; i++)
-	{
-		root->children[i] = new TrieNode(root);
-	}*/
 }
 void Trie::addWord(string key)
 {
 	if (searchWord(key))
 	{
-		cout << " word exists, no need to insert\n";
+		cout << "word exists, no need to insert\n";
 		return;
 	}
 	TrieNode* node = root;
@@ -40,11 +36,17 @@ bool Trie::deleteWord(string key)
 		node->isEndOfWord = false;
 		return true;
 	}
-	for (int i = key.length(); i > 0; i--)
+	TrieNode* temp = node->parent;
+	for (int i = key.length()-1; i >= 0; i--)
 	{
-		node = node->parent;
-		node->children[key[i] - 97] = NULL;
-		if (hasChildren(node))
+		if (i != key.length() - 1)
+		{
+			node = temp;
+			temp = temp->parent;
+		}
+		delete node;
+		temp->children[key[i] - 97] = NULL;
+		if (temp->isEndOfWord|| hasChildren(temp))
 			return true;
 	}
 	
