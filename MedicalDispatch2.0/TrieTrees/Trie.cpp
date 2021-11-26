@@ -13,8 +13,8 @@ void Trie::addWord(string key)
 	TrieNode* node = root;
 	for (int i = 0; i < key.length(); i++)
 	{
-		if (node->children[key[i] - 97] == NULL)
-			node->children[key[i] - 97] = new TrieNode(node);
+		if (node->children[key[i] - 'a'] == NULL)
+			node->children[key[i] - 'a'] = new TrieNode(node);
 			node = node->children[key[i] - 97];
 	}
 	node->isEndOfWord = true;
@@ -24,7 +24,7 @@ bool Trie::deleteWord(string key)
 	TrieNode* node = root;
 	for (int i = 0; i < key.length(); i++)
 	{
-		if (node->children[key[i] - 97] == NULL)
+		if (node->children[key[i] - 'a'] == NULL)
 			return false;
 		else
 			node = node->children[key[i] - 97];
@@ -45,7 +45,7 @@ bool Trie::deleteWord(string key)
 			temp = temp->parent;
 		}
 		delete node;
-		temp->children[key[i] - 97] = NULL;
+		temp->children[key[i] - 'a'] = NULL;
 		if (temp->isEndOfWord|| hasChildren(temp))
 			return true;
 	}
@@ -57,10 +57,10 @@ bool Trie::searchWord(string key,TrieNode* node)
 		return false;
 	for (int i = 0; i < key.length(); i++)
 	{
-		if (node->children[key[i] - 97] == NULL)
+		if (node->children[key[i] - 'a'] == NULL)
 			return false;
 		else
-			node = node->children[key[i] - 97];
+			node = node->children[key[i] - 'a'];
 	}
 	if (node->isEndOfWord)
 		return true;
@@ -72,12 +72,12 @@ int Trie::printAutoSuggestions(string key)
 	string pointer;
 	for (int i = 0; i < key.length(); i++)
 	{
-		if (node->children[key[i] - 97] == NULL)
+		if (node->children[key[i] - 'a'] == NULL)
 			return false;
 		else
 		{
 			pointer += key[i];
-			node = node->children[key[i] - 97];
+			node = node->children[key[i] - 'a'];
 		}
 	}
 	char wordsArray[ALPHABET_SIZE*100];
