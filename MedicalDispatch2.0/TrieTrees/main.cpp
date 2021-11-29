@@ -1,8 +1,11 @@
+// Menachem Heller 305567943
+// Bezalel Jacober 312033236
+
 #include<iostream>
 using namespace std;
 #include <list>
 #include <string>
-#include "trie.h"
+#include "Trie.h"
 
 int main()
 {
@@ -53,7 +56,9 @@ int main()
 			break;
 		case '5':cout << "bye " << endl; break;
 		default: cout << "ERROR " << endl;  break;
-		}//switch
+		}
+
+
 	} while (ch != '5');
 	return 0;
 
