@@ -108,7 +108,7 @@ int Trie::printAutoSuggestions(string key)
 			return false;
 		else
 		{
-			wordsArray[i] += key[i];
+			wordsArray[i] = key[i];
 			node = node->children[key[i] - 'a'];
 		}
 	}
