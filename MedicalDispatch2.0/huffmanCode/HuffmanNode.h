@@ -3,19 +3,10 @@
 #include <queue>
 using namespace std;
 
-class compareNode
-{
-public:
-	bool operator()(HuffmanNode* const& n1, HuffmanNode* const& n2)
-	{
-		return n1->frequency > n2->frequency;
-	}
-};
-
 
 class HuffmanNode
 {
-	
+
 
 	string str;
 	int frequency;
@@ -23,8 +14,8 @@ class HuffmanNode
 	HuffmanNode* right;
 
 public:
-	HuffmanNode() {}
-	HuffmanNode(int _frequency,string _str="", HuffmanNode* _left = NULL, HuffmanNode* _right = NULL)
+    HuffmanNode(){}
+	HuffmanNode(int _frequency, string _str = "", HuffmanNode* _left = NULL, HuffmanNode* _right = NULL)
 	{
 		str = _str;
 		frequency = _frequency;
@@ -41,6 +32,16 @@ public:
 	friend class compareNode;
 	friend class huffmanTree;
 };
+
+class compareNode
+{
+public:
+	bool operator()(HuffmanNode* const& n1, HuffmanNode* const& n2)
+	{
+		return n1->frequency > n2->frequency;
+	}
+};
+
 
 
 
