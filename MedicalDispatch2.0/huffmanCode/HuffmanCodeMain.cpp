@@ -26,12 +26,15 @@ int main()
 		{
 			cout << "enter the original text" << endl;
 			cin >> word;
+			t->buildTree(word);
+			t->printCodes(t);
+			t->PrintTreeStructure(t);
 			break;
 		}
 		//Build Huffman tree given the data inside "word".
 		//Then find the code of each letter.
 		//Then print the output - number of leaves, order of letters, tree structure and the encoded text - according to the explanation in the exercise.
-
+		
 
 		case 'D':
 		{

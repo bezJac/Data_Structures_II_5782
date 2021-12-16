@@ -1,4 +1,5 @@
 #include "HuffmanTree.h"
+#include"HuffmanNode.h"
 #include <string>
 
 void HuffmanTree::buildTree(string str)
@@ -27,4 +28,33 @@ void HuffmanTree::buildPriorityQueue(string str)
 			pQueue.push(new HuffmanNode(frequency,temp));
 		}
 	}
+}
+
+void HuffmanTree::printCodes(HuffmanNode* root, string str)
+{
+	if (root == NULL)
+		return;
+	if (root->str != "")
+		cout << root->str << ':' << str<<endl;
+	printCodes(root->left, str + "0");
+	printCodes(root->right, str + "1");
+}
+
+void HuffmanTree::PrintTreeStructure(HuffmanNode* root)
+{
+	
+		if (root->left == NULL && root->right == NULL)
+		{
+			cout << 1;
+			return;
+		}
+		if (root->left != NULL)
+		{
+			cout << 0;
+			PrintTreeStructure(root->left);
+		}
+		if (root->right != NULL)
+			PrintTreeStructure(root->right);
+
+	
 }
