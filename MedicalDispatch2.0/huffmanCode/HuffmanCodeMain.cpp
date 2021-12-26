@@ -26,9 +26,17 @@ int main()
 		{
 			cout << "enter the original text" << endl;
 			cin >> word;
+			
 			t->buildTree(word);
-			t->printCodes(t);
+			cout << t->GetTreeCount();
+			cout << endl;
+			t->printOrderOfTree(t);
+			cout << endl;
 			t->PrintTreeStructure(t);
+			cout << endl;
+			t->printCodes(t,word);
+			
+			
 			break;
 		}
 		//Build Huffman tree given the data inside "word".

@@ -30,14 +30,27 @@ void HuffmanTree::buildPriorityQueue(string str)
 	}
 }
 
-void HuffmanTree::printCodes(HuffmanNode* root, string str)
+void HuffmanTree::printOrderOfTree(HuffmanNode* root)
+{
+	
+
+		if (root == NULL)
+			return;
+		printOrderOfTree(root->left);
+		if (root->str != "")
+			cout << root->str;
+		printOrderOfTree(root->right);
+	
+}
+
+void HuffmanTree::printCodes(HuffmanNode* root, string code, char ch)
 {
 	if (root == NULL)
 		return;
-	if (root->str != "")
-		cout << root->str << ':' << str<<endl;
-	printCodes(root->left, str + "0");
-	printCodes(root->right, str + "1");
+	if (root->str[0] == ch)
+		cout << code;
+	printCodes(root->left, code + "0",ch);
+	printCodes(root->right, code + "1",ch);
 }
 
 void HuffmanTree::PrintTreeStructure(HuffmanNode* root)
@@ -58,3 +71,4 @@ void HuffmanTree::PrintTreeStructure(HuffmanNode* root)
 
 	
 }
+
