@@ -32,6 +32,19 @@ public:
 			count = decodeToText(str, root);
 		}
 	}
+	bool checkIfLegalTree(string str,int num)
+	{
+		int count = 0;
+		for (int i = 0; i <= str.size(); i++)
+		{
+			if (str[i] == '1')
+				++count;
+		}
+		if (count == num)
+			return  true;
+		else
+			return false;
+	}
 private:
 	int decodeToText(string code, HuffmanNode* t);
 	string createTreeFromStructure(string structure, string* const& letters, HuffmanNode* t);

@@ -29,7 +29,7 @@ int main()
 			cout << "enter the original text" << endl;
 			cin >> word;
 			
-			cout << "The encoded string is :" << endl;
+			cout << "The encoded string is " << endl;
 			t->buildTree(word);
 			cout << t->GetTreeCount();
 			cout << endl;
@@ -38,7 +38,7 @@ int main()
 			t->PrintTreeStructure();
 			cout << endl;
 			t->printCodes(word);
-			
+			cout << endl;
 			
 			break;
 		}
@@ -57,10 +57,17 @@ int main()
 			cin >> build;
 			cout << "enter the encoded text ";
 			cin >> word;
-			
-			t->createTreeFromStructure(build, letters);
-			cout << "The decoded string is: ";
-			t->decodeToText(word);
+			if (t->checkIfLegalTree(build,num))
+			{
+				t->createTreeFromStructure(build, letters);
+				cout << "The decoded string is ";
+				t->decodeToText(word);
+				cout << endl;
+			}
+			else
+			{
+				cout << "ERROR\n";
+			}
 			
 			//input the number of leaves, the  order of letters, tree structure and the encoded text.
 			//build the Huffman Tree according to the tree strcture. put the letters in the leaves according to the given order. 
@@ -73,5 +80,6 @@ int main()
 		}
 
 	} while (choice != 'X');
+	cout << "bye";
 	return 0;
 }
