@@ -20,7 +20,8 @@ public:
 	}
 	void PrintTreeStructure() { PrintTreeStructure(root); }
 	void printOrderOfTree() { printOrderOfTree(root); }
-	void createTreeFromStructure(string structure, string letters) { createTreeFromStructure(structure, &letters, root); }
+	void createTreeFromStructure(string structure, string letters) 
+	{ createTreeFromStructure(structure, &letters, root); }
 	void decodeToText(string code)
 	{
 		int count = 0;

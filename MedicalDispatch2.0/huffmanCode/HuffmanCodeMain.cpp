@@ -51,14 +51,15 @@ int main()
 		{
 			cout << "enter n ";
 			cin >> num;
-			cout << "\nenter the letters ";
+			cout << "enter the letters ";
 			cin >> letters;
-			cout << "\nenter the encoded structure ";
+			cout << "enter the encoded structure ";
 			cin >> build;
-			cout << "\nenter the encoded text ";
+			cout << "enter the encoded text ";
 			cin >> word;
+			
 			t->createTreeFromStructure(build, letters);
-			cout << "\nThe decoded string is: ";
+			cout << "The decoded string is: ";
 			t->decodeToText(word);
 			
 			//input the number of leaves, the  order of letters, tree structure and the encoded text.
