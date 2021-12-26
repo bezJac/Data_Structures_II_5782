@@ -6,23 +6,38 @@ class HuffmanTree
 {
 	priority_queue<HuffmanNode*, vector<HuffmanNode*>, compareNode> pQueue;
 	HuffmanNode* root;
-	int charCount = 0;
-	
+	int charCount;
+
 public:
-	HuffmanTree(){}
+	HuffmanTree() { root = new HuffmanNode(0),charCount=0; }
 	int GetTreeCount() { return charCount; }
-	void buildTree(string );
-	void printCodes(HuffmanTree* t,string input)
-	{ string codes; 
-	for(int i=0;i<input.size();i++)
-		printCodes(t->root, codes,input[i]); 
+	void buildTree(string);
+	void printCodes(string input)
+	{
+		string codes;
+		for (int i = 0; i < input.size(); i++)
+			printCodes(root, codes, input[i]);
 	}
-	void PrintTreeStructure(HuffmanTree* t) { PrintTreeStructure(t->root); }
-	void printOrderOfTree(HuffmanTree* t) { printOrderOfTree(t->root); }
+	void PrintTreeStructure() { PrintTreeStructure(root); }
+	void printOrderOfTree() { printOrderOfTree(root); }
+	void createTreeFromStructure(string structure, string letters) { createTreeFromStructure(structure, &letters, root); }
+	void decodeToText(string code)
+	{
+		int count = 0;
+		string str = code;
+		for (int i = 0; i <= code.size(); i += count)
+		{
+			str = str.substr(count);
+			count = decodeToText(str, root);
+		}
+	}
 private:
-	void printCodes(HuffmanNode* root, string str,char ch);
+	int decodeToText(string code, HuffmanNode* t);
+	string createTreeFromStructure(string structure, string* const& letters, HuffmanNode* t);
+	void printCodes(HuffmanNode* root, string str, char ch);
 	void PrintTreeStructure(HuffmanNode* root);
 	void buildPriorityQueue(string str);
 	void printOrderOfTree(HuffmanNode* root);
-	
+	int countFrequency(string, char);
+
 };

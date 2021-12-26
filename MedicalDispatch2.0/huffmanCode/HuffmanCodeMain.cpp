@@ -11,7 +11,9 @@ int main()
 {
 	char choice;
 	string word;
-
+	string build;
+	string letters;
+	int num;
 	HuffmanTree* t = new HuffmanTree();
 	cout << "enter E to encode a text\n";
 	cout << "enter D to decode a text\n";
@@ -27,14 +29,15 @@ int main()
 			cout << "enter the original text" << endl;
 			cin >> word;
 			
+			cout << "The encoded string is :" << endl;
 			t->buildTree(word);
 			cout << t->GetTreeCount();
 			cout << endl;
-			t->printOrderOfTree(t);
+			t->printOrderOfTree();
 			cout << endl;
-			t->PrintTreeStructure(t);
+			t->PrintTreeStructure();
 			cout << endl;
-			t->printCodes(t,word);
+			t->printCodes(word);
 			
 			
 			break;
@@ -46,6 +49,18 @@ int main()
 
 		case 'D':
 		{
+			cout << "enter n ";
+			cin >> num;
+			cout << "\nenter the letters ";
+			cin >> letters;
+			cout << "\nenter the encoded structure ";
+			cin >> build;
+			cout << "\nenter the encoded text ";
+			cin >> word;
+			t->createTreeFromStructure(build, letters);
+			cout << "\nThe decoded string is: ";
+			t->decodeToText(word);
+			
 			//input the number of leaves, the  order of letters, tree structure and the encoded text.
 			//build the Huffman Tree according to the tree strcture. put the letters in the leaves according to the given order. 
 			//Given the Huffman Tree and the encoded text, find the original text, and print it. 

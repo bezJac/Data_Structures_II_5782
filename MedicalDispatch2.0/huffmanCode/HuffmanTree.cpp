@@ -19,9 +19,10 @@ void HuffmanTree::buildTree(string str)
 
 void HuffmanTree::buildPriorityQueue(string str)
 {
+	charCount = 0;
 	for ( string temp = "a"; temp[0] <= 'z'; temp[0]++)
 	{
-		int frequency = count(str.begin(), str.end(), temp[0]);
+		int frequency = countFrequency(str,temp[0]);
 		if (frequency > 0)
 		{
 			charCount++;
@@ -41,6 +42,17 @@ void HuffmanTree::printOrderOfTree(HuffmanNode* root)
 			cout << root->str;
 		printOrderOfTree(root->right);
 	
+}
+
+int HuffmanTree::countFrequency(string str, char ch)
+{
+	int count = 0;
+	for (int i= 0; i < str.length(); i++)
+	{
+		if (str[i] == ch)
+			++count;
+	}
+	return count;
 }
 
 void HuffmanTree::printCodes(HuffmanNode* root, string code, char ch)
@@ -71,4 +83,47 @@ void HuffmanTree::PrintTreeStructure(HuffmanNode* root)
 
 	
 }
+
+int HuffmanTree::decodeToText(string code, HuffmanNode* t)
+{
+	int size = 0;
+	for (int i = 0; i <= code.length(); i++)
+	{
+		if (t->left == NULL && t->right == NULL)
+		{
+			cout << t->str;
+			return size;
+		}
+		if (code[i] == '0')
+		{
+			t = t->left;
+			size++;
+		}
+		if (code[i] == '1')
+		{
+			t = t->right;
+			size++;
+		}
+	}
+}
+
+string HuffmanTree::createTreeFromStructure(string structure, string* const& letters, HuffmanNode* root)
+{
+	if (structure[0] == '0')
+	{
+		root->left = new HuffmanNode(0);
+		root->right = new HuffmanNode(0);
+		structure=createTreeFromStructure(structure.substr(1), letters, root->left);
+		structure=createTreeFromStructure(structure.substr(1), letters, root->right);
+	}
+
+	else if (structure[0] == '1')
+	{
+		root->str = letters->at(0);
+		*letters = letters->substr(1);
+	}
+	return structure;
+}
+
+
 
