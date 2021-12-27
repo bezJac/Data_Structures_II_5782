@@ -34,6 +34,13 @@ void HuffmanTree::buildPriorityQueue(string str)
 			pQueue.push(new HuffmanNode(frequency,temp));
 		}
 	}
+	int space = countFrequency(str, ' ');
+	if (space > 0)
+	{
+		string spaceStr = " ";
+		charCount++;
+		pQueue.push(new HuffmanNode(space, spaceStr));
+	}
 }
 
 void HuffmanTree::printOrderOfTree(HuffmanNode* root)
@@ -71,6 +78,7 @@ void HuffmanTree::clearTree(HuffmanNode* root)
 	}
 	clearTree(root->left);
 	clearTree(root->right);
+	delete root;
 }
 
 void HuffmanTree::printCodes(HuffmanNode* root, string code, char ch)

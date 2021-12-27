@@ -28,7 +28,6 @@ int main()
 		{
 			cout << "enter the original text" << endl;
 			cin >> word;
-			
 			cout << "The encoded string is " << endl;
 			t->buildTree(word);
 			cout << t->GetTreeCount();
@@ -61,7 +60,7 @@ int main()
 			{
 				t->createTreeFromStructure(build, letters);
 				cout << "The decoded string is ";
-				t->decodeToText(word);
+				cout << t->decodeToText(word);
 				cout << endl;
 			}
 			else
@@ -78,8 +77,9 @@ int main()
 		default:
 			break;
 		}
-		
+		t->clearQueue();
 	} while (choice != 'X');
+	t->~HuffmanTree();
 	cout << "bye";
 	return 0;
 }

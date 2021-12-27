@@ -48,6 +48,11 @@ public:
 		else
 			return false;
 	}
+	void clearQueue()
+	{
+		while (!pQueue.empty())
+			pQueue.pop();
+	}
 private:
 	int decodeToText(string code, HuffmanNode* t,string* str);
 	string createTreeFromStructure(string structure, string* const& letters, HuffmanNode* t);
