@@ -2,6 +2,11 @@
 #include"HuffmanNode.h"
 #include <string>
 
+  HuffmanTree::~HuffmanTree()
+{
+	clearTree(root);
+}
+
 void HuffmanTree::buildTree(string str)
 {
 	buildPriorityQueue(str);
@@ -55,6 +60,19 @@ int HuffmanTree::countFrequency(string str, char ch)
 	return count;
 }
 
+
+
+void HuffmanTree::clearTree(HuffmanNode* root)
+{
+	if (root->left == NULL && root->right == NULL)
+	{
+		delete root;
+		return;
+	}
+	clearTree(root->left);
+	clearTree(root->right);
+}
+
 void HuffmanTree::printCodes(HuffmanNode* root, string code, char ch)
 {
 	if (root == NULL)
@@ -84,14 +102,14 @@ void HuffmanTree::PrintTreeStructure(HuffmanNode* root)
 	
 }
 
-int HuffmanTree::decodeToText(string code, HuffmanNode* t)
+int HuffmanTree::decodeToText(string code, HuffmanNode* t, string* result)
 {
 	int size = 0;
 	for (int i = 0; i <= code.length(); i++)
 	{
 		if (t->left == NULL && t->right == NULL)
 		{
-			cout << t->str;
+			*(result) += t->str;
 			return size;
 		}
 		if (code[i] == '0')

@@ -10,6 +10,7 @@ class HuffmanTree
 
 public:
 	HuffmanTree() { root = new HuffmanNode(0),charCount=0; }
+	~HuffmanTree();
 	int GetTreeCount() { return charCount; }
 	void buildTree(string);
 	void printCodes(string input)
@@ -22,15 +23,17 @@ public:
 	void printOrderOfTree() { printOrderOfTree(root); }
 	void createTreeFromStructure(string structure, string letters) 
 	{ createTreeFromStructure(structure, &letters, root); }
-	void decodeToText(string code)
+	string decodeToText(string code)
 	{
 		int count = 0;
 		string str = code;
+		string result;
 		for (int i = 0; i <= code.size(); i += count)
 		{
 			str = str.substr(count);
-			count = decodeToText(str, root);
+			count = decodeToText(str, root,&result);
 		}
+		return result;
 	}
 	bool checkIfLegalTree(string str,int num)
 	{
@@ -46,12 +49,13 @@ public:
 			return false;
 	}
 private:
-	int decodeToText(string code, HuffmanNode* t);
+	int decodeToText(string code, HuffmanNode* t,string* str);
 	string createTreeFromStructure(string structure, string* const& letters, HuffmanNode* t);
 	void printCodes(HuffmanNode* root, string str, char ch);
 	void PrintTreeStructure(HuffmanNode* root);
 	void buildPriorityQueue(string str);
 	void printOrderOfTree(HuffmanNode* root);
 	int countFrequency(string, char);
+	void clearTree(HuffmanNode* );
 
 };

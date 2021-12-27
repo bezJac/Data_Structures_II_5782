@@ -78,7 +78,7 @@ int main()
 		default:
 			break;
 		}
-
+		
 	} while (choice != 'X');
 	cout << "bye";
 	return 0;
