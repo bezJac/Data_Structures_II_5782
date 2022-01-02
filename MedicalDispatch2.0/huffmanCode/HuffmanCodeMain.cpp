@@ -1,3 +1,6 @@
+// Menachem Heller 305567943
+// Bezalel Jacober 312033236
+
 #include <iostream>
 #include <queue>
 #include <list>
@@ -27,7 +30,8 @@ int main()
 		case 'E':
 		{
 			cout << "enter the original text" << endl;
-			cin >> word;
+			cin.ignore();
+			getline(cin, word);
 			cout << "The encoded string is " << endl;
 			t->buildTree(word);
 			cout << t->GetTreeCount();
@@ -38,47 +42,39 @@ int main()
 			cout << endl;
 			t->printCodes(word);
 			cout << endl;
-			
+
 			break;
 		}
-		//Build Huffman tree given the data inside "word".
-		//Then find the code of each letter.
-		//Then print the output - number of leaves, order of letters, tree structure and the encoded text - according to the explanation in the exercise.
-		
-
 		case 'D':
 		{
-			cout << "enter n ";
+			cout << "enter n\n";
 			cin >> num;
-			cout << "enter the letters ";
-			cin >> letters;
-			cout << "enter the encoded structure ";
+			cout << "enter the letters\n";
+			cin.ignore();
+			getline(cin, letters);
+			cout << "enter the encoded structure\n";
 			cin >> build;
-			cout << "enter the encoded text ";
+			cout << "enter the encoded text\n";
 			cin >> word;
-			if (t->checkIfLegalTree(build,num))
-			{
-				t->createTreeFromStructure(build, letters);
-				cout << "The decoded string is ";
-				cout << t->decodeToText(word);
-				cout << endl;
-			}
-			else
+			if (!t->checkIfLegalTree(build, num))
 			{
 				cout << "ERROR\n";
 			}
-			
-			//input the number of leaves, the  order of letters, tree structure and the encoded text.
-			//build the Huffman Tree according to the tree strcture. put the letters in the leaves according to the given order. 
-			//Given the Huffman Tree and the encoded text, find the original text, and print it. 
+			else
+			{
+				t->createTreeFromStructure(build, letters);
+				cout << "The decoded string is\n";
+				cout << t->decodeToText(word);
+				cout << endl;
+			}
 			break;
-
 		}
 		default:
 			break;
 		}
 		t->clearQueue();
 	} while (choice != 'X');
+
 	t->~HuffmanTree();
 	cout << "bye";
 	return 0;
